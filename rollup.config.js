@@ -9,10 +9,10 @@ import image from '@rollup/plugin-image';
 import strip from 'rollup-plugin-strip';
 import path from 'path';
 import fs from 'fs';
+import babel from '@rollup/plugin-babel';
 
 const packageJson = require('./package.json');
 
-// Get all component directories
 const componentsDir = path.resolve(__dirname, 'src/components');
 const components = fs.readdirSync(componentsDir).filter((name) => {
   const isDir = fs.statSync(path.join(componentsDir, name)).isDirectory();
@@ -84,6 +84,7 @@ export default [
       },
     ],
     plugins: [
+      babel({ babelHelpers: 'bundled' }),
       peerDepsExternal(),
       resolve(),
       commonjs(),
